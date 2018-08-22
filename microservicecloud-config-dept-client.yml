@@ -1,0 +1,48 @@
+spting:
+  profiles:
+    active:
+    - dev
+
+---
+
+server:
+  port: 8001
+spring:
+  profiles: dev
+  application:
+    name: microservicecloud-config-dept-client
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
+    driver-class-name: org.gjt.mm.mysql.Driver              # mysql驱动包
+    url: jdbc:mysql://localhost:3306/cloudDB03?useUnicode=true&characterEncoding=utf-8              # 数据库名称
+    username: root
+    password: 
+    dbcp2:
+      min-idle: 5                                           # 数据库连接池的最小维持连接数
+      initial-size: 5                                       # 初始化连接数
+      max-total: 5                                          # 最大连接数
+      max-wait-millis: 200                                  # 等待连接获取的最大超时时间
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml        # mybatis配置文件所在路径
+  type-aliases-package: com.hanbin.springcloud.entities    # 所有Entity别名类所在包
+  mapper-locations: 
+  - classpath:mybatis/mapper/**/*.xml                       # mapper映射文件
+      
+
+eureka:
+  client: #客户端注册如eureka服务列表内
+    service-url:
+       #defaultZone: http://localhost:7001/eureka #单机版
+       defaultZone: http://eureka7001.com:7001/eureka/
+
+  instance:
+    instance-id: dept-8001.com
+    prefer-ip-address: true #允许显示IP地址
+    
+
+info:
+  app.name: hanbin-microservicecloud-springcloudconfig02
+  company.name: www.hanbin.com
+  build.artifactid: $project.artifactid$
+  build.version : $project.version$
